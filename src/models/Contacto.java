@@ -1,7 +1,5 @@
 package models;
 
-import java.util.Objects;
-
 public class Contacto {
     private String nombre;
     private String apellido;
@@ -30,16 +28,21 @@ public class Contacto {
         return "Contacto{" + "nombre='" + nombre + '\'' + ", apellido='" + apellido + '\'' + ", telefono='" + telefono + '\'' + '}';
     }
     @Override
-    public boolean equals(Object obj){
-        if(this==obj)
+    public boolean equals(Object obj) {
+        if (this == obj) // mismas referencias en memoria
             return true;
-        if(obj==null || getClass() != obj.getClass() ) 
+        if (obj == null) // objeto es null
             return false;
-        Contacto contacto = (Contacto) obj;
-        return Objects.equals(nombre,contacto.nombre) && Objects.equals(apellido,contacto.apellido) && Objects.equals(telefono,contacto.telefono);
+        if (getClass() != obj.getClass()) // si no son de la misma clase
+            return false;
+    
+        Contacto other = (Contacto) obj;
+        return nombre.equals(other.nombre) && apellido.equals(other.apellido) && telefono.equals(other.telefono);
     }
+    
     @Override
-    public int hashCode(){
-        return Objects.hash(nombre,apellido,telefono);
+    public int hashCode() {
+        // Incluyendo el teléfono en el hash
+        return nombre.hashCode() + apellido.hashCode() + telefono.hashCode();
     }
-}
+}    

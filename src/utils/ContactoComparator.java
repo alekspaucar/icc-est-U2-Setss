@@ -1,19 +1,26 @@
 package utils;
 
 import java.util.Comparator;
-
 import models.Contacto;
 
 public class ContactoComparator implements Comparator<Contacto>{
 
     @Override
-    public int compare(Contacto o1, Contacto o2) {
+    public int compare(Contacto c1, Contacto c2) {
 
-        int comparacionApellido = o1.getApellido().compareTo(o2.getApellido());
+        // Comparar por apellido
+        int comparacionApellido = c1.getApellido().compareToIgnoreCase(c2.getApellido());
         
         if (comparacionApellido != 0) {
-            return comparacionApellido;
+            return comparacionApellido;  // Si los apellidos son diferentes, devuelve el resultado
         }
-        return o1.getNombre().compareTo(o2.getNombre());
+        // Si los apellidos son iguales, comparar por nombre
+        int comparacionNombre = c1.getNombre().compareToIgnoreCase(c2.getNombre());
+    
+        if (comparacionNombre != 0) {
+            return comparacionNombre;  // Si los nombres son diferentes, devuelve el resultado
+        }
+        // Si los nombres y apellidos son iguales, comparar por teléfono
+        return c1.getTelefono().compareTo(c2.getTelefono());
     }
 }
